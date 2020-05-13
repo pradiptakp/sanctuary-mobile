@@ -1,5 +1,6 @@
 import {StyleSheet} from 'react-native';
 import {scale, verticalScale} from 'react-native-size-matters';
+import {globalStyles} from '../../constants/globalStyles';
 
 export const styles = StyleSheet.create({
   root: {
@@ -28,5 +29,16 @@ export const styles = StyleSheet.create({
   },
   inputPassword: {
     marginVertical: verticalScale(20),
+  },
+  button: {
+    paddingVertical: 6,
+    marginVertical: verticalScale(8),
+  },
+  forgotPassword: {
+    color: globalStyles.colors.primary,
+  },
+  formContainer: {
+    marginBottom: verticalScale(32),
+    width: '100%',
   },
 });
