@@ -2,8 +2,8 @@ import 'react-native-gesture-handler';
 import React from 'react';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 
-import HomeScreen from '../../containers/Home';
-import ProfileScreen from '../../containers/Profile';
+import HomeScreen from '../../screens/Home';
+import ProfileScreen from '../../screens/Profile';
 import {globalStyles} from '../../constants/globalStyles';
 import MaterialIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 

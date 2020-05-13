@@ -16,7 +16,10 @@ const App = () => {
       <PersistGate loading={<View />} persistor={persistor}>
         <SafeAreaProvider>
           <PaperProvider theme={globalStyles}>
-            <StatusBar backgroundColor={globalStyles.colors.primary} />
+            <StatusBar
+              backgroundColor={globalStyles.colors.background}
+              barStyle="dark-content"
+            />
             <AppContainer />
           </PaperProvider>
         </SafeAreaProvider>
