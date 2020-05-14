@@ -31,9 +31,9 @@ export const styles = StyleSheet.create({
     marginVertical: verticalScale(20),
   },
   button: {
-    paddingVertical: 6,
     marginVertical: verticalScale(8),
   },
+  textButton: {},
   forgotPassword: {
     color: globalStyles.colors.primary,
   },
