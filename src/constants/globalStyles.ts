@@ -10,5 +10,6 @@ export const globalStyles = {
     background: 'white',
     placeholder: '#aaa',
     selection: '#d5bffc',
+    lightGray: '#eaeaea',
   },
 };

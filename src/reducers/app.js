@@ -1,16 +1,15 @@
-import {APP} from '../actions/actionTypes';
+import { APP } from "../actions/actionTypes";
 
 const initialState = {
-  count: 0,
+  user: null,
 };
 
 const appReducer = (state = initialState, action) => {
   switch (action.type) {
     case APP.UPDATE_STORE_STATE:
       return Object.assign({}, initialState, state);
-    case APP.UPDATE_COUNT:
-      return {...state, count: action.payload};
-
+    case APP.SAVE_USER_DATA:
+      return { ...state, user: action.payload };
     default:
       return state;
   }

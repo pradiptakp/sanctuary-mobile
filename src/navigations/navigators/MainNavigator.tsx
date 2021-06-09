@@ -11,9 +11,7 @@ const Tab = createMaterialBottomTabNavigator();
 
 export const MainNavigator = () => {
   return (
-    <Tab.Navigator
-      shifting={true}
-      barStyle={{backgroundColor: globalStyles.colors.primary}}>
+    <Tab.Navigator shifting={true} barStyle={{backgroundColor: 'white'}}>
       <Tab.Screen
         name="Home"
         component={HomeScreen}
@@ -22,7 +20,7 @@ export const MainNavigator = () => {
             <MaterialIcons
               name={focused ? 'home' : 'home-outline'}
               size={24}
-              color="white"
+              color={globalStyles.colors.primary}
             />
           ),
         }}
@@ -35,7 +33,7 @@ export const MainNavigator = () => {
             <MaterialIcons
               name={focused ? 'account' : 'account-outline'}
               size={24}
-              color="white"
+              color={globalStyles.colors.primary}
             />
           ),
         }}

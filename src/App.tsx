@@ -23,10 +23,18 @@ const App = () => {
         <SafeAreaProvider>
           <PaperProvider theme={globalStyles}>
             <StatusBar
-              backgroundColor={globalStyles.colors.background}
+              backgroundColor="transparent"
               barStyle="dark-content"
+              translucent
             />
-            <AppContainer />
+            <View
+              style={{
+                paddingTop: StatusBar.currentHeight,
+                flex: 1,
+                backgroundColor: 'white',
+              }}>
+              <AppContainer />
+            </View>
           </PaperProvider>
         </SafeAreaProvider>
       </PersistGate>
