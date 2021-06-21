@@ -1,5 +1,4 @@
 import React from 'react';
-import {connect} from 'react-redux';
 import {View, ScrollView, Text} from 'react-native';
 import {material} from 'react-native-typography';
 import {styles} from './styles';
@@ -9,12 +8,7 @@ import {TextInput, Button, Checkbox} from 'react-native-paper';
 import {globalStyles} from '../../constants/globalStyles';
 import {AppRoute} from '../../navigations/routes';
 
-interface PropsType {
-  count: number;
-  updateCount: Function;
-}
-
-const Login: AppScreen<AppRoute.LOGIN> = props => {
+const Login = () => {
   const [email, setEmail] = React.useState<string>('');
   const [password, setPassword] = React.useState<string>('');
 
@@ -47,7 +41,7 @@ const Login: AppScreen<AppRoute.LOGIN> = props => {
             dark={true}
             mode="contained"
             style={styles.button}
-            onPress={() => props.navigation.navigate(AppRoute.NAVIGATOR)}>
+            onPress={() => {}}>
             Login
           </Button>
         </View>
@@ -65,11 +59,4 @@ const Login: AppScreen<AppRoute.LOGIN> = props => {
   );
 };
 
-const mapStateToProps = () => ({});
-
-const mapDispatchToProps = {};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Login);
+export default Login;

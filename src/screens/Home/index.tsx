@@ -1,5 +1,5 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import {connect, useDispatch} from 'react-redux';
 import {View, Text, FlatList, ScrollView} from 'react-native';
 import {material} from 'react-native-typography';
 import IconM from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -16,41 +16,95 @@ import {globalStyles} from '../../constants/globalStyles';
 import {Icon} from 'react-native-paper/lib/typescript/src/components/Avatar/Avatar';
 import {Switch} from 'react-native-gesture-handler';
 
-interface PropsType {
-  count: number;
-  updateCount: Function;
-}
+const DeviceCard = ({item, index}: any) => {
+  const dispatch = useDispatch();
+  const [state, setState] = React.useState(item.state === 'on' ? true : false);
 
-const Home: React.FC<PropsType> = props => {
-  const devicesData = [
-    {
-      name: 'Lamp 1',
-      icon: 'lightbulb-outline',
-      state: false,
-    },
-    {
-      name: 'Lamp 2',
-      icon: 'lightbulb-outline',
-      state: true,
-    },
-    {
-      name: 'Lamp 3',
-      icon: 'lightbulb-outline',
-      state: false,
-    },
-  ];
-  const roomsData = [
-    {
-      name: 'Living Room',
-      icon: 'sofa',
-      selected: true,
-    },
-    {
-      name: 'Bedroom',
-      icon: 'sofa',
-      selected: false,
-    },
-  ];
+  return (
+    <View
+      style={{
+        marginLeft: index === 0 ? 20 : 16,
+        marginRight: 20,
+        backgroundColor: 'white',
+        borderRadius: 8,
+        width: 160,
+      }}>
+      <View style={{flexDirection: 'row'}}>
+        <View style={{flex: 1, margin: 12}}>
+          <IconM
+            name="lightbulb-outline"
+            size={28}
+            color={globalStyles.colors.primary}
+          />
+        </View>
+        <IconButton
+          icon="dots-vertical"
+          onPress={() => {}}
+          rippleColor="#eee"
+          color={globalStyles.colors.primary}
+        />
+      </View>
+      <Text style={{marginLeft: 12}}>{item.id}</Text>
+      <View style={{height: 8}} />
+      <Switch
+        value={state}
+        thumbColor={state ? globalStyles.colors.primary : 'white'}
+        onValueChange={() => {}}
+        trackColor={{
+          false: '#eee',
+          true: '#eee',
+        }}
+      />
+      <View style={{height: 8}} />
+    </View>
+  );
+};
+
+const Home: React.FC<any> = props => {
+  const [rooms, setRooms] = React.useState<any>(null);
+  const [selectedRoom, setSelectedRoom] = React.useState<any>(null);
+  const [devices, setDevices] = React.useState<any>(null);
+
+  const fetchRooms = () => {
+    props.indexRooms(
+      null,
+      (res: any) => {
+        setRooms([...res]);
+        setSelectedRoom(res[0].id);
+      },
+      (err: any) => {
+        console.log(err.response.data);
+        // swal({
+        //   icon: "error",
+        //   title: "Error",
+        //   text: err.response?.data ? err.response.data : err.message,
+        // }).then(() => {
+        //   if (err.response?.data === "Invalid token: access token is invalid") {
+        //     // logout();
+        //   } else {
+        //     fetchRooms();
+        //   }
+        // });
+      },
+    );
+  };
+
+  React.useEffect(fetchRooms, []);
+
+  const fetchDevices = () => {
+    props.indexDevices(
+      '&options=keyValues',
+      (res: any) => {
+        console.log(res);
+        setDevices([...res]);
+      },
+      (err: any) => {
+        console.log(err);
+      },
+    );
+  };
+
+  React.useEffect(fetchDevices, []);
 
   return (
     <View style={{flex: 1, backgroundColor: globalStyles.colors.lightGray}}>
@@ -72,7 +126,7 @@ const Home: React.FC<PropsType> = props => {
             />
           </View>
         </View>
-        <View style={{height: 12}} />
+        {/* <View style={{height: 12}} />
         <View style={{flexDirection: 'row'}}>
           <View style={{flex: 1}}>
             <Text style={{color: '#aaa'}}>Monthly Power Usage</Text>
@@ -86,11 +140,11 @@ const Home: React.FC<PropsType> = props => {
               32°C
             </Title>
           </View>
-        </View>
+        </View> */}
       </View>
 
       <ScrollView>
-        <View>
+        {/* <View>
           <View style={{height: 12}} />
           <View style={{marginHorizontal: 20, marginBottom: 8}}>
             <Title>Recently Used</Title>
@@ -142,14 +196,14 @@ const Home: React.FC<PropsType> = props => {
               );
             }}
           />
-        </View>
+        </View> */}
         <View>
           <View style={{height: 20}} />
           <View style={{marginHorizontal: 20, marginBottom: 8}}>
             <Title>Rooms</Title>
           </View>
           <FlatList
-            data={roomsData}
+            data={rooms}
             horizontal
             showsHorizontalScrollIndicator={false}
             keyExtractor={({name}) => name}
@@ -159,20 +213,22 @@ const Home: React.FC<PropsType> = props => {
                   <View
                     style={{
                       marginLeft: index === 0 ? 20 : 16,
-                      marginRight: index === devicesData.length - 1 ? 20 : 0,
-                      backgroundColor: item.selected
-                        ? globalStyles.colors.primary
-                        : 'white',
+                      marginRight:
+                        index === devices && devices.length - 1 ? 20 : 0,
+                      backgroundColor:
+                        selectedRoom === item.id
+                          ? globalStyles.colors.primary
+                          : 'white',
                       borderRadius: 8,
                       width: 160,
                     }}>
                     <View style={{flexDirection: 'row'}}>
                       <View style={{flex: 1, margin: 12}}>
                         <IconM
-                          name={item.icon}
+                          name="sofa"
                           size={28}
                           color={
-                            item.selected
+                            selectedRoom === item.id
                               ? 'white'
                               : globalStyles.colors.primary
                           }
@@ -183,23 +239,26 @@ const Home: React.FC<PropsType> = props => {
                         onPress={() => {}}
                         rippleColor="#eee"
                         color={
-                          item.selected ? 'white' : globalStyles.colors.primary
+                          selectedRoom === item.id
+                            ? 'white'
+                            : globalStyles.colors.primary
                         }
                       />
                     </View>
                     <Text
                       style={{
                         marginLeft: 12,
-                        color: item.selected
-                          ? 'white'
-                          : globalStyles.colors.primary,
+                        color:
+                          selectedRoom === item.id
+                            ? 'white'
+                            : globalStyles.colors.primary,
                       }}>
                       {item.name}
                     </Text>
 
                     <View style={{height: 12}} />
                   </View>
-                  {item.selected ? (
+                  {selectedRoom === item.id ? (
                     <View
                       style={{
                         width: 0,
@@ -228,51 +287,13 @@ const Home: React.FC<PropsType> = props => {
             <Title>Devices</Title>
           </View>
           <FlatList
-            data={devicesData}
+            data={devices}
             horizontal
             showsHorizontalScrollIndicator={false}
             keyExtractor={({name}) => name}
-            renderItem={({item, index}) => {
-              return (
-                <View
-                  style={{
-                    marginLeft: index === 0 ? 20 : 16,
-                    marginRight: index === devicesData.length - 1 ? 20 : 0,
-                    backgroundColor: 'white',
-                    borderRadius: 8,
-                    width: 160,
-                  }}>
-                  <View style={{flexDirection: 'row'}}>
-                    <View style={{flex: 1, margin: 12}}>
-                      <IconM
-                        name={item.icon}
-                        size={28}
-                        color={globalStyles.colors.primary}
-                      />
-                    </View>
-                    <IconButton
-                      icon="dots-vertical"
-                      onPress={() => {}}
-                      rippleColor="#eee"
-                      color={globalStyles.colors.primary}
-                    />
-                  </View>
-                  <Text style={{marginLeft: 12}}>{item.name}</Text>
-                  <View style={{height: 8}} />
-                  <Switch
-                    value={item.state}
-                    thumbColor={
-                      item.state ? globalStyles.colors.primary : 'white'
-                    }
-                    trackColor={{
-                      false: '#eee',
-                      true: '#eee',
-                    }}
-                  />
-                  <View style={{height: 8}} />
-                </View>
-              );
-            }}
+            renderItem={({index, item}) => (
+              <DeviceCard item={item} index={index} />
+            )}
           />
         </View>
         <View style={{height: 20}} />
@@ -281,11 +302,4 @@ const Home: React.FC<PropsType> = props => {
   );
 };
 
-const mapStateToProps = state => ({});
-
-const mapDispatchToProps = {};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Home);
+export default Home;

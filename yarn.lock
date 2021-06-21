@@ -1144,6 +1144,11 @@
   dependencies:
     "@babel/types" "^7.3.0"
 
+"@types/component-emitter@^1.2.10":
+  version "1.2.10"
+  resolved "https://registry.yarnpkg.com/@types/component-emitter/-/component-emitter-1.2.10.tgz#ef5b1589b9f16544642e473db5ea5639107ef3ea"
+  integrity sha512-bsjleuRKWmGqajMerkzox19aGbscQX5rmmvvXl3wlIp5gMG1HgkiwPxsN5p070fBDKTNSPgojVbuY1+HWMbFhg==
+
 "@types/eslint-visitor-keys@^1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@types/eslint-visitor-keys/-/eslint-visitor-keys-1.0.0.tgz#1ee30d79544ca84d68d4b3cdb0af4f205663dd2d"
@@ -1191,6 +1196,21 @@
   version "15.7.3"
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.3.tgz#2ab0d5da2e5815f94b0b9d4b95d1e5f243ab2ca7"
   integrity sha512-KfRL3PuHmqQLOG+2tGpRO26Ctg+Cq1E01D2DMriKEATHgWLfeNDmq9e29Q9WIky0dQ3NPkd1mzYH8Lm936Z9qw==
+
+"@types/react-native-vector-icons@^6.4.7":
+  version "6.4.7"
+  resolved "https://registry.yarnpkg.com/@types/react-native-vector-icons/-/react-native-vector-icons-6.4.7.tgz#862039d668afcff42690b179b2a61dc762b84f73"
+  integrity sha512-srU4IWO5ghzm96dwyiKRYJCGD+Q0Lcu8NsWOXLi4pRPH24mb68XhrqW5Gb63AeiXlAOFsaOl2Irlsg79BNYt4A==
+  dependencies:
+    "@types/react" "*"
+    "@types/react-native" "*"
+
+"@types/react-native@*":
+  version "0.64.10"
+  resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.64.10.tgz#5eb6a72c77ce0f7e6e14b19c61a6bc585975eef5"
+  integrity sha512-3Kb9QM5/WZ6p58yZ7VPbvjvi6Wc/ZkESgJhKso1gKkNuHBe/4WL6586R2JRDiz9Tsxal9lMnbj3fligBVGl8PA==
+  dependencies:
+    "@types/react" "*"
 
 "@types/react-native@^0.61.5":
   version "0.61.23"
@@ -1724,10 +1744,20 @@ babel-preset-jest@^24.9.0:
     "@babel/plugin-syntax-object-rest-spread" "^7.0.0"
     babel-plugin-jest-hoist "^24.9.0"
 
+backo2@~1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/backo2/-/backo2-1.0.2.tgz#31ab1ac8b129363463e35b3ebb69f4dfcfba7947"
+  integrity sha1-MasayLEpNjRj41s+u2n038+6eUc=
+
 balanced-match@^1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-1.0.2.tgz#e83e3a7e3f300b34cb9d87f615fa0cbf357690ee"
   integrity sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==
+
+base64-arraybuffer@0.1.4:
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/base64-arraybuffer/-/base64-arraybuffer-0.1.4.tgz#9818c79e059b1355f97e0428a017c838e90ba812"
+  integrity sha1-mBjHngWbE1X5fgQooBfIOOkLqBI=
 
 base64-js@^1.1.2, base64-js@^1.5.1:
   version "1.5.1"
@@ -2119,7 +2149,7 @@ commondir@^1.0.1:
   resolved "https://registry.yarnpkg.com/commondir/-/commondir-1.0.1.tgz#ddd800da0c66127393cca5950ea968a3aaf1253b"
   integrity sha1-3dgA2gxmEnOTzKWVDqloo6rxJTs=
 
-component-emitter@^1.2.1:
+component-emitter@^1.2.1, component-emitter@~1.3.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/component-emitter/-/component-emitter-1.3.0.tgz#16e4070fba8ae29b679f2215853ee181ab2eabc0"
   integrity sha512-Rd3se6QB+sO1TwqZjscQrurpEPIfO0/yYnSin6Q/rD3mOutHvUrCAhJub3r90uNb+SESBuE0QYoB90YdfatsRg==
@@ -2289,7 +2319,7 @@ debug@2.6.9, debug@^2.2.0, debug@^2.3.3:
   dependencies:
     ms "2.0.0"
 
-debug@^4.0.1, debug@^4.1.0, debug@^4.1.1:
+debug@^4.0.1, debug@^4.1.0, debug@^4.1.1, debug@~4.3.1:
   version "4.3.1"
   resolved "https://registry.yarnpkg.com/debug/-/debug-4.3.1.tgz#f0d229c505e0c6d8c49ac553d1b13dc183f6b2ee"
   integrity sha512-doEwdvm4PCeK4K3RQN2ZC2BYUBaxwLARCqZmMjtF8a51J2Rb0xpVloFRnCODwqjpwnAoao4pelN8l3RJdv3gRQ==
@@ -2456,6 +2486,28 @@ end-of-stream@^1.1.0:
   integrity sha512-+uw1inIHVPQoaVuHzRyXd21icM+cnt4CzD5rW+NC1wjOUSTOs+Te7FOv7AhN7vS9x/oIyhLP5PR1H+phQAHu5Q==
   dependencies:
     once "^1.4.0"
+
+engine.io-client@~5.1.1:
+  version "5.1.1"
+  resolved "https://registry.yarnpkg.com/engine.io-client/-/engine.io-client-5.1.1.tgz#f5c3aaaef1bdc9443aac6ffde48b3b2fb2dc56fc"
+  integrity sha512-jPFpw2HLL0lhZ2KY0BpZhIJdleQcUO9W1xkIpo0h3d6s+5D6+EV/xgQw9qWOmymszv2WXef/6KUUehyxEKomlQ==
+  dependencies:
+    base64-arraybuffer "0.1.4"
+    component-emitter "~1.3.0"
+    debug "~4.3.1"
+    engine.io-parser "~4.0.1"
+    has-cors "1.1.0"
+    parseqs "0.0.6"
+    parseuri "0.0.6"
+    ws "~7.4.2"
+    yeast "0.1.2"
+
+engine.io-parser@~4.0.1:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/engine.io-parser/-/engine.io-parser-4.0.2.tgz#e41d0b3fb66f7bf4a3671d2038a154024edb501e"
+  integrity sha512-sHfEQv6nmtJrq6TKuIz5kyEKH/qSdK56H/A+7DnAuUPWosnIZAS2NHNcPLmyjtY3cGS/MqJdZbUjW97JU72iYg==
+  dependencies:
+    base64-arraybuffer "0.1.4"
 
 envinfo@^7.7.2:
   version "7.8.1"
@@ -3235,6 +3287,11 @@ has-bigints@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/has-bigints/-/has-bigints-1.0.1.tgz#64fe6acb020673e3b78db035a5af69aa9d07b113"
   integrity sha512-LSBS2LjbNBTf6287JEbEzvJgftkF5qFkmCo9hDRpAzKhUOlJ+hx8dd4USs00SgsUNwc4617J9ki5YtEClM2ffA==
+
+has-cors@1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/has-cors/-/has-cors-1.1.0.tgz#5e474793f7ea9843d1bb99c23eef49ff126fff39"
+  integrity sha1-XkdHk/fqmEPRu5nCPu9J/xJv/zk=
 
 has-flag@^3.0.0:
   version "3.0.0"
@@ -5235,6 +5292,16 @@ parse5@4.0.0:
   resolved "https://registry.yarnpkg.com/parse5/-/parse5-4.0.0.tgz#6d78656e3da8d78b4ec0b906f7c08ef1dfe3f608"
   integrity sha512-VrZ7eOd3T1Fk4XWNXMgiGBK/z0MG48BWG2uQNU4I72fkQuKUTZpl+u9k+CxEG0twMVzSmXEEz12z5Fnw1jIQFA==
 
+parseqs@0.0.6:
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/parseqs/-/parseqs-0.0.6.tgz#8e4bb5a19d1cdc844a08ac974d34e273afa670d5"
+  integrity sha512-jeAGzMDbfSHHA091hr0r31eYfTig+29g3GKKE/PPbEQ65X0lmMwlEoqmhzu0iztID5uJpZsFlUPDP8ThPL7M8w==
+
+parseuri@0.0.6:
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/parseuri/-/parseuri-0.0.6.tgz#e1496e829e3ac2ff47f39a4dd044b32823c4a25a"
+  integrity sha512-AUjen8sAkGgao7UyCX6Ahv0gIK2fABKmYjvP4xmy5JaKvcbTRueIqIPHLAfq30xJddqSE033IOMUSOMCcK3Sow==
+
 parseurl@~1.3.3:
   version "1.3.3"
   resolved "https://registry.yarnpkg.com/parseurl/-/parseurl-1.3.3.tgz#9da19e7bee8d12dff0513ed5b76957793bc2e8d4"
@@ -6133,6 +6200,28 @@ snapdragon@^0.8.1:
     source-map-resolve "^0.5.0"
     use "^3.1.0"
 
+socket.io-client@^4.1.2:
+  version "4.1.2"
+  resolved "https://registry.yarnpkg.com/socket.io-client/-/socket.io-client-4.1.2.tgz#95ad7113318ea01fba0860237b96d71e1b1fd2eb"
+  integrity sha512-RDpWJP4DQT1XeexmeDyDkm0vrFc0+bUsHDKiVGaNISJvJonhQQOMqV9Vwfg0ZpPJ27LCdan7iqTI92FRSOkFWQ==
+  dependencies:
+    "@types/component-emitter" "^1.2.10"
+    backo2 "~1.0.2"
+    component-emitter "~1.3.0"
+    debug "~4.3.1"
+    engine.io-client "~5.1.1"
+    parseuri "0.0.6"
+    socket.io-parser "~4.0.4"
+
+socket.io-parser@~4.0.4:
+  version "4.0.4"
+  resolved "https://registry.yarnpkg.com/socket.io-parser/-/socket.io-parser-4.0.4.tgz#9ea21b0d61508d18196ef04a2c6b9ab630f4c2b0"
+  integrity sha512-t+b0SS+IxG7Rxzda2EVvyBZbvFPBCjJoyHuE0P//7OAsN23GItzDRdWa6ALxZI/8R5ygK7jAR6t028/z+7295g==
+  dependencies:
+    "@types/component-emitter" "^1.2.10"
+    component-emitter "~1.3.0"
+    debug "~4.3.1"
+
 source-map-resolve@^0.5.0:
   version "0.5.3"
   resolved "https://registry.yarnpkg.com/source-map-resolve/-/source-map-resolve-0.5.3.tgz#190866bece7553e1f8f267a2ee82c606b5509a1a"
@@ -6570,6 +6659,11 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
+typesafe-actions@^5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/typesafe-actions/-/typesafe-actions-5.1.0.tgz#9afe8b1e6a323af1fd59e6a57b11b7dd6623d2f1"
+  integrity sha512-bna6Yi1pRznoo6Bz1cE6btB/Yy8Xywytyfrzu/wc+NFW3ZF0I+2iCGImhBsoYYCOWuICtRO4yHcnDlzgo1AdNg==
+
 typescript-compare@^0.0.2:
   version "0.0.2"
   resolved "https://registry.yarnpkg.com/typescript-compare/-/typescript-compare-0.0.2.tgz#7ee40a400a406c2ea0a7e551efd3309021d5f425"
@@ -6588,6 +6682,11 @@ typescript-tuple@^2.2.1:
   integrity sha512-Zcr0lbt8z5ZdEzERHAMAniTiIKerFCMgd7yjq1fPnDJ43et/k9twIFQMUYff9k5oXcsQ0WpvFcgzK2ZKASoW6Q==
   dependencies:
     typescript-compare "^0.0.2"
+
+typescript@^4.3.4:
+  version "4.3.4"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.3.4.tgz#3f85b986945bcf31071decdd96cf8bfa65f9dcbc"
+  integrity sha512-uauPG7XZn9F/mo+7MrsRjyvbxFpzemRjKEZXS4AK83oP2KKOJPvb+9cO/gmnv8arWZvhnjVOXz7B49m1l0e9Ew==
 
 ua-parser-js@^0.7.18:
   version "0.7.28"
@@ -6898,7 +6997,7 @@ ws@^5.2.0:
   dependencies:
     async-limiter "~1.0.0"
 
-ws@^7:
+ws@^7, ws@~7.4.2:
   version "7.4.6"
   resolved "https://registry.yarnpkg.com/ws/-/ws-7.4.6.tgz#5654ca8ecdeee47c33a9a4bf6d28e2be2980377c"
   integrity sha512-YmhHDO4MzaDLB+M9ym/mDA5z0naX8j7SIlT8f8z+I0VtzsRbekxEutHSme7NPS2qE8StCYQNUnfWdXta/Yu85A==
@@ -7026,3 +7125,8 @@ yargs@^15.1.0:
     which-module "^2.0.0"
     y18n "^4.0.0"
     yargs-parser "^18.1.2"
+
+yeast@0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/yeast/-/yeast-0.1.2.tgz#008e06d8094320c372dbc2f8ed76a0ca6c8ac419"
+  integrity sha1-AI4G2AlDIMNy28L47XagymyKxBk=

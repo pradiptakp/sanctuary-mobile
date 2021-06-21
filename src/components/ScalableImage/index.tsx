@@ -27,8 +27,8 @@ const ScalableImage: React.FC<PropsType> = props => {
     ? ImageBackground
     : Image;
 
-  const [scalableWidth, setScalableWidth] = useState<number>(null);
-  const [scalableHeight, setScalableHeight] = useState<number>(null);
+  const [scalableWidth, setScalableWidth] = useState<number>();
+  const [scalableHeight, setScalableHeight] = useState<number>();
   const [image, setImage] = useState(<ImageComponent />);
   const mounted = useRef<boolean>(false);
 
@@ -59,7 +59,7 @@ const ScalableImage: React.FC<PropsType> = props => {
     );
   }, [props, scalableHeight, scalableWidth]);
 
-  const onProps = localProps => {
+  const onProps = (localProps: {source: any}) => {
     const {source} = localProps;
     if (source.uri) {
       const sourceToUse = source.uri ? source.uri : source;
@@ -75,7 +75,11 @@ const ScalableImage: React.FC<PropsType> = props => {
     }
   };
 
-  const adjustSize = (sourceWidth, sourceHeight, localProps) => {
+  const adjustSize = (
+    sourceWidth: number,
+    sourceHeight: number,
+    localProps: any,
+  ) => {
     const {width, height} = localProps;
 
     let ratio = 1;
@@ -94,8 +98,9 @@ const ScalableImage: React.FC<PropsType> = props => {
 
       setScalableWidth(computedWidth);
       setScalableHeight(computedHeight);
-
-      props.onSize({width: computedWidth, height: computedHeight});
+      if (props.onSize) {
+        props.onSize({width: computedWidth, height: computedHeight});
+      }
     }
   };
 
