@@ -22,6 +22,7 @@ import {
   Menu,
   Divider,
 } from "react-native-paper";
+import io from "socket.io-client";
 import {globalStyles} from "../../constants/globalStyles";
 import {Device, Room} from "../../types";
 import {AppRoute} from "../../navigations/routes";
@@ -30,19 +31,37 @@ import {RootState} from "../../redux/store";
 import {deleteRoom, getRooms} from "../../redux/actions/roomActions";
 import {useNavigation} from "@react-navigation/native";
 import {deleteDevice, switchDevice} from "../../redux/actions/deviceActions";
+//@ts-ignore
+import SwitchToggle from "react-native-switch-toggle";
 
 const DeviceCard = ({
   item,
   index,
   fetchRooms,
+  ws,
 }: {
   item: Device;
   index: number;
   fetchRooms: () => void;
+  ws: any;
 }) => {
   const dispatch = useDispatch();
   const [state, setState] = React.useState(item.state === "on" ? true : false);
   const [temperature, setTemperature] = React.useState(item.temperature);
+
+  React.useEffect(() => {
+    ws.on("switch", (s: {id: string; state: boolean}) => {
+      if (s.id === item.id) {
+        setState(s.state);
+      }
+    });
+
+    ws.on("update_temperature", (s: {id: string; temperature: string}) => {
+      if (s.id === item.id) {
+        setTemperature(s.temperature);
+      }
+    });
+  }, []);
 
   const onDelete = () => {
     Alert.alert("Delete Device", "Device will be deleted, are you sure?", [
@@ -84,10 +103,6 @@ const DeviceCard = ({
     );
   };
 
-  React.useEffect(() => {
-    onSwitch(state);
-  }, [state]);
-
   return (
     <View
       style={{
@@ -98,7 +113,17 @@ const DeviceCard = ({
       }}>
       <View style={{flexDirection: "row"}}>
         <View style={{flex: 1, margin: 12}}>
-          <IconM name="lightbulb-outline" size={28} color={globalStyles.colors.primary} />
+          <IconM
+            name={
+              item.id.includes("Lamp")
+                ? "lightbulb-outline"
+                : item.id.includes("Lock")
+                ? "lock-outline"
+                : "thermometer"
+            }
+            size={28}
+            color={globalStyles.colors.primary}
+          />
         </View>
         <IconButton
           icon="trash-can"
@@ -113,15 +138,24 @@ const DeviceCard = ({
         <Text style={{}}>{item.id.replace("urn:ngsi-ld:", "")}</Text>
         <View style={{height: 8}} />
         {item.id.includes("Lamp") || item.id.includes("Lock") ? (
-          <Switch
-            value={state}
-            thumbColor={state ? globalStyles.colors.primary : "white"}
-            onValueChange={() => {
-              setState(!state);
+          <SwitchToggle
+            switchOn={state}
+            onPress={() => onSwitch(!state)}
+            circleColorOff="#fff"
+            circleColorOn={globalStyles.colors.primary}
+            backgroundColorOn="#eee"
+            backgroundColorOff="#ddd"
+            containerStyle={{
+              marginVertical: 16,
+              width: 48,
+              height: 24,
+              borderRadius: 25,
+              padding: 4,
             }}
-            trackColor={{
-              false: "#eee",
-              true: "#eee",
+            circleStyle={{
+              width: 20,
+              height: 20,
+              borderRadius: 20,
             }}
           />
         ) : (
@@ -212,11 +246,26 @@ const RoomCard = ({
           <Text
             style={{
               marginLeft: 12,
-              color: selected ? "white" : globalStyles.colors.primary,
+              color: selected ? "white" : "black",
             }}>
             {room.name}
           </Text>
 
+          <View style={{height: 12}} />
+          <Caption
+            style={{
+              marginLeft: 12,
+              color: selected ? "white" : globalStyles.colors.placeholder,
+            }}>
+            Device Total
+          </Caption>
+          <Text
+            style={{
+              marginLeft: 12,
+              color: selected ? "white" : undefined,
+            }}>
+            {room.devices.length}
+          </Text>
           <View style={{height: 12}} />
         </View>
         {selected ? (
@@ -245,9 +294,17 @@ const RoomCard = ({
 const Home: AppScreen<AppRoute.HOME> = (props) => {
   const dispatch = useDispatch();
   const {user} = useSelector((state: RootState) => state.auth);
+  const {hostUrl} = useSelector((state: RootState) => state.app);
   const [selectedRoom, setSelectedRoom] = React.useState<Room>();
   const [rooms, setRooms] = React.useState<Room[]>([]);
   const [loading, setLoading] = React.useState(true);
+  const [ws] = React.useState(io(hostUrl));
+
+  React.useEffect(() => {
+    ws.on("connect", () => {
+      console.log("asolole");
+    });
+  });
 
   const fetchRooms = () => {
     setLoading(true);
@@ -266,9 +323,6 @@ const Home: AppScreen<AppRoute.HOME> = (props) => {
   };
 
   React.useEffect(fetchRooms, []);
-  React.useEffect(() => {
-    console.log(rooms);
-  }, [rooms]);
 
   const onDelete = (id: string) => {
     Alert.alert("Delete Room", "Room and its devices will be deleted, are you sure?", [
@@ -309,17 +363,6 @@ const Home: AppScreen<AppRoute.HOME> = (props) => {
             <View style={{flex: 1}}>
               <Subheading style={{color: "#aaa"}}>Welcome,</Subheading>
               <Title style={{marginTop: 0, lineHeight: 26}}>{user?.userData.username}</Title>
-            </View>
-          </View>
-          <View style={{height: 12}} />
-          <View style={{flexDirection: "row"}}>
-            <View style={{flex: 1}}>
-              <Caption style={{color: "#aaa"}}>Total Rooms</Caption>
-              <Text style={{marginTop: 0, lineHeight: 26, fontSize: 18}}>100 KWh</Text>
-            </View>
-            <View style={{flex: 1}}>
-              <Caption style={{color: "#aaa"}}>Total Devices</Caption>
-              <Text style={{marginTop: 0, lineHeight: 26, fontSize: 18}}>32°C</Text>
             </View>
           </View>
         </View>
@@ -421,7 +464,7 @@ const Home: AppScreen<AppRoute.HOME> = (props) => {
                   showsHorizontalScrollIndicator={false}
                   keyExtractor={({id}) => id}
                   renderItem={({index, item}) => (
-                    <DeviceCard item={item} index={index} fetchRooms={fetchRooms} />
+                    <DeviceCard item={item} index={index} fetchRooms={fetchRooms} ws={ws} />
                   )}
                 />
               ) : (

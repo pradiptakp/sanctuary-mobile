@@ -2487,6 +2487,11 @@ domexception@^1.0.1:
   dependencies:
     webidl-conversions "^4.0.2"
 
+dooboolab-welcome@^1.3.0:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/dooboolab-welcome/-/dooboolab-welcome-1.3.1.tgz#37c4bbae0c84616c37ba9301dc87521ae2e9af86"
+  integrity sha512-KcTf3RVRGO3QADgsEJPFixFqj1c3oZPI3SnS6rVO7soaASi4+iHmVvBFFAf+l/sQsxCbPeV8sGhsdG6ZdSLqmQ==
+
 ecc-jsbn@~0.1.1:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/ecc-jsbn/-/ecc-jsbn-0.1.2.tgz#3a83a904e54353287874c564b7549386849a98c9"
@@ -5667,6 +5672,13 @@ react-native-splash-screen@^3.2.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/react-native-splash-screen/-/react-native-splash-screen-3.2.0.tgz#d47ec8557b1ba988ee3ea98d01463081b60fff45"
   integrity sha512-Ls9qiNZzW/OLFoI25wfjjAcrf2DZ975hn2vr6U9gyuxi2nooVbzQeFoQS5vQcbCt9QX5NY8ASEEAtlLdIa6KVg==
+
+react-native-switch-toggle@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/react-native-switch-toggle/-/react-native-switch-toggle-2.1.1.tgz#d4e568ce8b24b413507880335063f2a6f4385c38"
+  integrity sha512-QY2X0sH4XIs10S+q8ht9m5iPVszHdzke2Hf9KK6tKoU4ID68e+zsLqFeyLjBznCHjCNHSNWYHtQhFSjd4HXPMA==
+  dependencies:
+    dooboolab-welcome "^1.3.0"
 
 react-native-typography@^1.4.1:
   version "1.4.1"
