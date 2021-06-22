@@ -7,5 +7,7 @@ module.exports = {
     "react-hooks/exhaustive-deps": "off",
     "no-fallthrough": "off",
     "no-spaced-func": "off",
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "off",
   },
 };

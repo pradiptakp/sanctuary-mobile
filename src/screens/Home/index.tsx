@@ -1,11 +1,17 @@
 import React from "react";
-import {View, Text, FlatList, ScrollView} from "react-native";
+import {View, Text, FlatList, ScrollView, Alert} from "react-native";
 import IconM from "react-native-vector-icons/MaterialCommunityIcons";
 import {Title, Subheading, IconButton} from "react-native-paper";
 import {globalStyles} from "../../constants/globalStyles";
 import {Switch} from "react-native-gesture-handler";
+import {Device, Room} from "../../types";
+import {AppRoute} from "../../navigations/routes";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
+import { deleteRoom, getRooms } from "../../redux/actions/roomActions";
+import room from "../../redux/sagas/room";
 
-const DeviceCard = ({item, index}: any) => {
+const DeviceCard = ({item, index}: {item: Device; index: number}) => {
   const [state, setState] = React.useState(item.state === "on" ? true : false);
 
   return (
@@ -28,7 +34,7 @@ const DeviceCard = ({item, index}: any) => {
           color={globalStyles.colors.primary}
         />
       </View>
-      <Text style={{marginLeft: 12}}>{item.id}</Text>
+      <Text style={{marginLeft: 12}}>asdf</Text>
       <View style={{height: 8}} />
       <Switch
         value={state}
@@ -46,51 +52,56 @@ const DeviceCard = ({item, index}: any) => {
   );
 };
 
-const Home: React.FC<any> = props => {
-  const [rooms, setRooms] = React.useState<any>(null);
-  const [selectedRoom, setSelectedRoom] = React.useState<any>(null);
-  const [devices, setDevices] = React.useState<any>(null);
+const Home: AppScreen<AppRoute.HOME> = props => {
+  const dispatch = useDispatch()
+  const {user} = useSelector((state: RootState) => state.auth)
+  const [selectedRoom, setSelectedRoom] = React.useState<Room>()
+  const [rooms, setRooms] = React.useState<Room[]>([]);
+  const [loading, setLoading] = React.useState(true);
 
   const fetchRooms = () => {
-    props.indexRooms(
-      null,
-      (res: any) => {
-        setRooms([...res]);
-        setSelectedRoom(res[0].id);
-      },
-      (err: any) => {
-        console.log(err.response.data);
-        // swal({
-        //   icon: "error",
-        //   title: "Error",
-        //   text: err.response?.data ? err.response.data : err.message,
-        // }).then(() => {
-        //   if (err.response?.data === "Invalid token: access token is invalid") {
-        //     // logout();
-        //   } else {
-        //     fetchRooms();
-        //   }
-        // });
-      },
+    setLoading(true);
+    dispatch(
+      getRooms.request({
+        onSuccess: (res) => {
+          setRooms(res);
+          setLoading(false);
+        },
+        onFailure: () => {
+          setLoading(false);
+        },
+      })
     );
   };
 
   React.useEffect(fetchRooms, []);
 
-  const fetchDevices = () => {
-    props.indexDevices(
-      "&options=keyValues",
-      (res: any) => {
-        console.log(res);
-        setDevices([...res]);
+  const onDelete = (id: string) => {
+    Alert.alert("Delete Room", "Room and its devices will be deleted, are you sure?", [
+      {
+        text: "Cancel"
       },
-      (err: any) => {
-        console.log(err);
-      },
-    );
+      {
+        text: "OK",
+        onPress: () => {
+          dispatch(
+            deleteRoom.request({
+              id,
+              onSuccess: () => {
+                
+                setRooms([]);
+                fetchRooms();
+              },
+              onFailure: (err) => {
+                
+              },
+            })
+          );
+        }
+      }
+    ])
+   
   };
-
-  React.useEffect(fetchDevices, []);
 
   return (
     <View style={{flex: 1, backgroundColor: globalStyles.colors.lightGray}}>
@@ -102,8 +113,8 @@ const Home: React.FC<any> = props => {
         }}>
         <View style={{flexDirection: "row"}}>
           <View style={{flex: 1}}>
-            <Subheading style={{color: "#aaa"}}>Welcome home,</Subheading>
-            <Title style={{marginTop: 0, lineHeight: 26}}>Angga Pradipta</Title>
+            <Subheading style={{color: "#aaa"}}>Welcome,</Subheading>
+            <Title style={{marginTop: 0, lineHeight: 26}}>{user?.userData.username}</Title>
           </View>
           <View>
             <IconButton icon="bell-outline" color={globalStyles.colors.primary} />
@@ -196,9 +207,9 @@ const Home: React.FC<any> = props => {
                   <View
                     style={{
                       marginLeft: index === 0 ? 20 : 16,
-                      marginRight: index === devices && devices.length - 1 ? 20 : 0,
+                      marginRight:  0,
                       backgroundColor:
-                        selectedRoom === item.id ? globalStyles.colors.primary : "white",
+                        selectedRoom?.id === item.id ? globalStyles.colors.primary : "white",
                       borderRadius: 8,
                       width: 160,
                     }}>
@@ -207,27 +218,27 @@ const Home: React.FC<any> = props => {
                         <IconM
                           name="sofa"
                           size={28}
-                          color={selectedRoom === item.id ? "white" : globalStyles.colors.primary}
+                          color={selectedRoom?.id === item.id ? "white" : globalStyles.colors.primary}
                         />
                       </View>
                       <IconButton
                         icon="dots-vertical"
                         onPress={() => {}}
                         rippleColor="#eee"
-                        color={selectedRoom === item.id ? "white" : globalStyles.colors.primary}
+                        color={selectedRoom?.id === item.id ? "white" : globalStyles.colors.primary}
                       />
                     </View>
                     <Text
                       style={{
                         marginLeft: 12,
-                        color: selectedRoom === item.id ? "white" : globalStyles.colors.primary,
+                        color: selectedRoom?.id === item.id ? "white" : globalStyles.colors.primary,
                       }}>
                       {item.name}
                     </Text>
 
                     <View style={{height: 12}} />
                   </View>
-                  {selectedRoom === item.id ? (
+                  {selectedRoom?.id === item.id ? (
                     <View
                       style={{
                         width: 0,
@@ -256,10 +267,10 @@ const Home: React.FC<any> = props => {
             <Title>Devices</Title>
           </View>
           <FlatList
-            data={devices}
+            data={selectedRoom?.devices}
             horizontal
             showsHorizontalScrollIndicator={false}
-            keyExtractor={({name}) => name}
+            keyExtractor={({id}) => id}
             renderItem={({index, item}) => <DeviceCard item={item} index={index} />}
           />
         </View>

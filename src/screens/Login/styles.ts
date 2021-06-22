@@ -1,5 +1,4 @@
 import {StyleSheet} from "react-native";
-import {scale, verticalScale} from "react-native-size-matters";
 import {globalStyles} from "../../constants/globalStyles";
 
 export const styles = StyleSheet.create({
@@ -12,7 +11,7 @@ export const styles = StyleSheet.create({
     backgroundColor: "white",
     flex: 1,
     width: "100%",
-    padding: scale(20),
+    padding: 20,
   },
   fab: {
     position: "absolute",
@@ -21,24 +20,24 @@ export const styles = StyleSheet.create({
     bottom: 0,
   },
   logo: {
-    marginVertical: verticalScale(12),
-    width: verticalScale(32),
+    marginVertical: 12,
+    width: 32,
   },
   title: {
-    marginBottom: verticalScale(28),
+    marginBottom: 28,
   },
   inputPassword: {
-    marginVertical: verticalScale(20),
+    marginVertical: 20,
   },
   button: {
-    marginVertical: verticalScale(8),
+    marginVertical: 8,
   },
   textButton: {},
   forgotPassword: {
     color: globalStyles.colors.primary,
   },
   formContainer: {
-    marginBottom: verticalScale(32),
+    marginBottom: 32,
     width: "100%",
   },
 });

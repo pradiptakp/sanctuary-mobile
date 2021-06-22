@@ -4,11 +4,20 @@ import {deleteRoom, getRoom, getRooms, postRoom, updateRoom} from "../actions/ro
 import {INDEX_ROOM, STORE_ROOM, DELETE_ROOM, UPDATE_ROOM} from "../../apis";
 import {Room} from "../../types";
 import {hostUrlSelector} from "../reducers/appReducer";
+import {tokenSelector} from "../reducers/authReducer";
 
 function* getRoomsSaga({payload}: ReturnType<typeof getRooms.request>) {
   try {
+    const {keyrockToken, token}: {token: string; keyrockToken: string} = yield select(
+      tokenSelector,
+    );
     const hostUrl: string = yield select(hostUrlSelector);
-    const response: AxiosResponse<Room[]> = yield axios.get(hostUrl + INDEX_ROOM);
+    const response: AxiosResponse<Room[]> = yield axios.get(hostUrl + INDEX_ROOM, {
+      headers: {
+        "X-Auth-Token": token,
+        "X-Keyrock-Token": keyrockToken,
+      },
+    });
 
     payload.onSuccess(response.data);
   } catch (err) {
@@ -19,8 +28,16 @@ function* getRoomsSaga({payload}: ReturnType<typeof getRooms.request>) {
 
 function* getRoomSaga({payload}: ReturnType<typeof getRoom.request>) {
   try {
+    const {keyrockToken, token}: {token: string; keyrockToken: string} = yield select(
+      tokenSelector,
+    );
     const hostUrl: string = yield select(hostUrlSelector);
-    const response: AxiosResponse<Room> = yield axios.get(`${hostUrl + INDEX_ROOM}/${payload.id}`);
+    const response: AxiosResponse<Room> = yield axios.get(`${hostUrl + INDEX_ROOM}/${payload.id}`, {
+      headers: {
+        "X-Auth-Token": token,
+        "X-Keyrock-Token": keyrockToken,
+      },
+    });
     payload.onSuccess(response.data);
   } catch (err) {
     console.error(err);
@@ -30,8 +47,16 @@ function* getRoomSaga({payload}: ReturnType<typeof getRoom.request>) {
 
 function* postRoomSaga({payload}: ReturnType<typeof postRoom.request>) {
   try {
+    const {keyrockToken, token}: {token: string; keyrockToken: string} = yield select(
+      tokenSelector,
+    );
     const hostUrl: string = yield select(hostUrlSelector);
-    yield axios.post(hostUrl + STORE_ROOM, payload.data);
+    yield axios.post(hostUrl + STORE_ROOM, payload.data, {
+      headers: {
+        "X-Auth-Token": token,
+        "X-Keyrock-Token": keyrockToken,
+      },
+    });
 
     payload.onSuccess();
   } catch (err) {
@@ -42,8 +67,16 @@ function* postRoomSaga({payload}: ReturnType<typeof postRoom.request>) {
 
 function* updateRoomSaga({payload}: ReturnType<typeof updateRoom.request>) {
   try {
+    const {keyrockToken, token}: {token: string; keyrockToken: string} = yield select(
+      tokenSelector,
+    );
     const hostUrl: string = yield select(hostUrlSelector);
-    yield axios.put(hostUrl + UPDATE_ROOM + payload.id, payload.data);
+    yield axios.put(hostUrl + UPDATE_ROOM + payload.id, payload.data, {
+      headers: {
+        "X-Auth-Token": token,
+        "X-Keyrock-Token": keyrockToken,
+      },
+    });
 
     payload.onSuccess();
   } catch (err) {
@@ -54,8 +87,16 @@ function* updateRoomSaga({payload}: ReturnType<typeof updateRoom.request>) {
 
 function* deleteRoomSaga({payload}: ReturnType<typeof deleteRoom.request>) {
   try {
+    const {keyrockToken, token}: {token: string; keyrockToken: string} = yield select(
+      tokenSelector,
+    );
     const hostUrl: string = yield select(hostUrlSelector);
-    yield axios.delete(hostUrl + DELETE_ROOM + payload.id);
+    yield axios.delete(hostUrl + DELETE_ROOM + payload.id, {
+      headers: {
+        "X-Auth-Token": token,
+        "X-Keyrock-Token": keyrockToken,
+      },
+    });
 
     payload.onSuccess();
   } catch (err) {

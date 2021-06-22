@@ -1,21 +1,23 @@
 import React from "react";
-import {connect} from "react-redux";
+import {connect, useSelector} from "react-redux";
 import {View} from "react-native";
 import IconM from "react-native-vector-icons/MaterialCommunityIcons";
 import {Appbar, Caption, Text, Title} from "react-native-paper";
 import {globalStyles} from "../../constants/globalStyles";
+import { RootState } from "../../redux/store";
 
 interface PropsType {}
 
 const Profile: React.FC<PropsType> = () => {
+  const {user} = useSelector((state: RootState) => state.auth)
   return (
     <View style={{flex: 1}}>
       <Appbar.Header style={{backgroundColor: "white", elevation: 0}}>
         <Appbar.Content title="Profile" />
       </Appbar.Header>
       <View style={{backgroundColor: "white", padding: 20, paddingTop: 0}}>
-        <Title style={{fontSize: 16, marginBottom: 0, lineHeight: 26}}>Angga Pradipta</Title>
-        <Caption>anggaa.pradipta@gmail.com</Caption>
+        <Title style={{fontSize: 16, marginBottom: 0, lineHeight: 26}}>{user?.userData.username}</Title>
+        <Caption>{user?.userData.email}</Caption>
       </View>
       <View style={{height: 12}} />
       <Title style={{paddingHorizontal: 20, fontSize: 16}}>Information</Title>
