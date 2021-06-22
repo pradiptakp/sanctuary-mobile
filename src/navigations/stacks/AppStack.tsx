@@ -4,6 +4,8 @@ import {createStackNavigator} from "@react-navigation/stack";
 
 import {MainNavigator} from "../navigators/MainNavigator";
 import LoginScreen from "../../screens/Login";
+import CreateRoomScreen from "../../screens/Entities/CreateRoom";
+import CreateDeviceScreen from "../../screens/Entities/CreateDevice";
 import HostInputScreen from "../../screens/Login/HostInput";
 import {useSelector} from "react-redux";
 import {RootState} from "../../redux/store";
@@ -29,6 +31,16 @@ export const AppContainer = () => {
         <Stack.Screen
           name="MainNavigator"
           component={MainNavigator}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="AddRoomScreen"
+          component={CreateRoomScreen}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="AddDeviceScreen"
+          component={CreateDeviceScreen}
           options={{headerShown: false}}
         />
       </Stack.Navigator>

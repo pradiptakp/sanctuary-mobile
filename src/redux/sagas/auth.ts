@@ -22,7 +22,7 @@ function* postLoginSaga({payload}: ReturnType<typeof postLogin.request>) {
     yield put(setUser(response.data));
     payload.onSuccess(response.data);
   } catch (err) {
-    console.error(err);
+    console.log(err);
     payload.onFailure();
   }
 }

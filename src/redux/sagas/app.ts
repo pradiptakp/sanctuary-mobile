@@ -19,11 +19,11 @@ function* getDashboardSaga({payload}: ReturnType<typeof getDashboardInfo.request
           "X-Keyrock-Token": keyrockToken,
         },
       })
-      .then(res => res);
+      .then((res) => res);
 
     payload.onSuccess(response.data);
   } catch (err) {
-    console.error(err);
+    console.log(err);
     payload.onFailure();
   }
 }

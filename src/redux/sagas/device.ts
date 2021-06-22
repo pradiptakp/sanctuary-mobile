@@ -27,7 +27,7 @@ function* getDevicesSaga({payload}: ReturnType<typeof getDevices.request>) {
 
     payload.onSuccess(response.data);
   } catch (err) {
-    console.error(err);
+    console.log(err);
     payload.onFailure();
   }
 }
@@ -47,7 +47,7 @@ function* postDeviceSaga({payload}: ReturnType<typeof postDevice.request>) {
 
     payload.onSuccess();
   } catch (err) {
-    console.error(err);
+    console.log(err);
     payload.onFailure();
   }
 }
@@ -67,7 +67,7 @@ function* updateDeviceSaga({payload}: ReturnType<typeof updateDevice.request>) {
 
     payload.onSuccess();
   } catch (err) {
-    console.error(err);
+    console.log(err);
     payload.onFailure();
   }
 }
@@ -87,7 +87,7 @@ function* deleteDeviceSaga({payload}: ReturnType<typeof deleteDevice.request>) {
 
     payload.onSuccess();
   } catch (err) {
-    console.error(err);
+    console.log(err);
     payload.onFailure();
   }
 }
@@ -107,7 +107,7 @@ function* switchDeviceSaga({payload}: ReturnType<typeof switchDevice.request>) {
 
     payload.onSuccess();
   } catch (err) {
-    console.error(err);
+    console.log(err);
     payload.onFailure();
   }
 }

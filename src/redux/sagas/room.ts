@@ -21,7 +21,7 @@ function* getRoomsSaga({payload}: ReturnType<typeof getRooms.request>) {
 
     payload.onSuccess(response.data);
   } catch (err) {
-    console.error(err);
+    console.log(err);
     payload.onFailure();
   }
 }
@@ -40,7 +40,7 @@ function* getRoomSaga({payload}: ReturnType<typeof getRoom.request>) {
     });
     payload.onSuccess(response.data);
   } catch (err) {
-    console.error(err);
+    console.log(err);
     payload.onFailure(err);
   }
 }
@@ -60,7 +60,7 @@ function* postRoomSaga({payload}: ReturnType<typeof postRoom.request>) {
 
     payload.onSuccess();
   } catch (err) {
-    console.error(err);
+    console.log(err);
     payload.onFailure();
   }
 }
@@ -80,7 +80,7 @@ function* updateRoomSaga({payload}: ReturnType<typeof updateRoom.request>) {
 
     payload.onSuccess();
   } catch (err) {
-    console.error(err);
+    console.log(err);
     payload.onFailure();
   }
 }
@@ -99,9 +99,9 @@ function* deleteRoomSaga({payload}: ReturnType<typeof deleteRoom.request>) {
     });
 
     payload.onSuccess();
-  } catch (err) {
-    console.error(err);
-    payload.onFailure(err);
+  } catch (err: any) {
+    console.log(err);
+    payload.onFailure(err.response.data);
   }
 }
 

@@ -5,7 +5,6 @@ export enum AppRoute {
   HOME = "HomeScreen",
   ROOMS = "RoomScreen",
   ADD_ROOM = "AddRoomScreen",
-  EDIT_ROOM = "EditRoomScreen",
   DEVICE = "DeviceScreen",
   ADD_DEVICE = "AddDeviceScreen",
   EDIT_DEVICE = "EditDeviceScreen",
@@ -18,10 +17,16 @@ export type AppStackParamList = {
   MainNavigator: undefined;
   HomeScreen: undefined;
   RoomScreen: undefined;
-  AddRoomScreen: undefined;
-  EditRoomScreen: undefined;
+  AddRoomScreen: {
+    id?: string;
+    onGoBack?: () => void;
+  };
   DeviceScreen: undefined;
-  AddDeviceScreen: undefined;
+  AddDeviceScreen: {
+    roomId: string;
+    deviceId?: string;
+    onGoBack?: () => void;
+  };
   EditDeviceScreen: undefined;
   ProfileScreen: undefined;
 };

@@ -1,18 +1,12 @@
-import { select, takeLatest } from "redux-saga/effects";
-import axios, { AxiosResponse } from "axios";
-import {
-  deleteUser,
-  getUser,
-  getUsers,
-  postUser,
-  updateUser,
-} from "../actions/userActions";
-import { INDEX_USER, STORE_USER, DELETE_USER, UPDATE_USER } from "../../apis";
-import { User } from "../../types";
-import { hostUrlSelector } from "../reducers/appReducer";
-import { tokenSelector } from "../reducers/authReducer";
+import {select, takeLatest} from "redux-saga/effects";
+import axios, {AxiosResponse} from "axios";
+import {deleteUser, getUser, getUsers, postUser, updateUser} from "../actions/userActions";
+import {INDEX_USER, STORE_USER, DELETE_USER, UPDATE_USER} from "../../apis";
+import {User} from "../../types";
+import {hostUrlSelector} from "../reducers/appReducer";
+import {tokenSelector} from "../reducers/authReducer";
 
-function* getUsersSaga({ payload }: ReturnType<typeof getUsers.request>) {
+function* getUsersSaga({payload}: ReturnType<typeof getUsers.request>) {
   try {
     const {keyrockToken, token}: {token: string; keyrockToken: string} = yield select(
       tokenSelector,
@@ -27,34 +21,32 @@ function* getUsersSaga({ payload }: ReturnType<typeof getUsers.request>) {
 
     payload.onSuccess(response.data);
   } catch (err: any) {
-    console.error(err.response);
+    console.log(err.response);
     payload.onFailure(err.response?.data);
   }
 }
 
-function* getUserSaga({ payload }: ReturnType<typeof getUser.request>) {
+function* getUserSaga({payload}: ReturnType<typeof getUser.request>) {
   try {
     const {keyrockToken, token}: {token: string; keyrockToken: string} = yield select(
       tokenSelector,
     );
     const hostUrl: string = yield select(hostUrlSelector);
-    const response: AxiosResponse<User> = yield axios.get(
-      `${hostUrl + INDEX_USER}/${payload.id}`, {
+    const response: AxiosResponse<User> = yield axios.get(`${hostUrl + INDEX_USER}/${payload.id}`, {
       headers: {
         "X-Auth-Token": token,
         "X-Keyrock-Token": keyrockToken,
       },
-    }
-    );
+    });
 
     payload.onSuccess(response.data);
   } catch (err: any) {
-    console.error(err.response);
+    console.log(err.response);
     payload.onFailure(err.response?.data);
   }
 }
 
-function* postUserSaga({ payload }: ReturnType<typeof postUser.request>) {
+function* postUserSaga({payload}: ReturnType<typeof postUser.request>) {
   try {
     const {keyrockToken, token}: {token: string; keyrockToken: string} = yield select(
       tokenSelector,
@@ -69,12 +61,12 @@ function* postUserSaga({ payload }: ReturnType<typeof postUser.request>) {
 
     payload.onSuccess();
   } catch (err: any) {
-    console.error(err.response);
+    console.log(err.response);
     payload.onFailure(err.response?.data);
   }
 }
 
-function* updateUserSaga({ payload }: ReturnType<typeof updateUser.request>) {
+function* updateUserSaga({payload}: ReturnType<typeof updateUser.request>) {
   try {
     const {keyrockToken, token}: {token: string; keyrockToken: string} = yield select(
       tokenSelector,
@@ -89,12 +81,12 @@ function* updateUserSaga({ payload }: ReturnType<typeof updateUser.request>) {
 
     payload.onSuccess();
   } catch (err: any) {
-    console.error(err.response);
+    console.log(err.response);
     payload.onFailure(err.response?.data);
   }
 }
 
-function* deleteUserSaga({ payload }: ReturnType<typeof deleteUser.request>) {
+function* deleteUserSaga({payload}: ReturnType<typeof deleteUser.request>) {
   try {
     const {keyrockToken, token}: {token: string; keyrockToken: string} = yield select(
       tokenSelector,
@@ -109,7 +101,7 @@ function* deleteUserSaga({ payload }: ReturnType<typeof deleteUser.request>) {
 
     payload.onSuccess();
   } catch (err: any) {
-    console.error(err.response);
+    console.log(err.response);
     payload.onFailure(err.response?.data);
   }
 }
