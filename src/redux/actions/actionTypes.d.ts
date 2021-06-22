@@ -1,4 +1,4 @@
-import { ActionType } from "typesafe-actions";
+import {ActionType} from "typesafe-actions";
 import * as appActions from "./appActions";
 import * as authActions from "./authActions";
 import * as roomActions from "./roomActions";

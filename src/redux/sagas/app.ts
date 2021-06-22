@@ -1,13 +1,11 @@
-import {select, takeLatest} from 'redux-saga/effects';
-import axios, {AxiosResponse} from 'axios';
-import {GET_DASHBOARD_INFO} from '../../apis';
-import {getDashboardInfo} from '../actions/appActions';
-import {DashboardData} from '../../types';
-import {hostUrlSelector} from '../reducers/appReducer';
+import {select, takeLatest} from "redux-saga/effects";
+import axios, {AxiosResponse} from "axios";
+import {GET_DASHBOARD_INFO} from "../../apis";
+import {getDashboardInfo} from "../actions/appActions";
+import {DashboardData} from "../../types";
+import {hostUrlSelector} from "../reducers/appReducer";
 
-function* getDashboardSaga({
-  payload,
-}: ReturnType<typeof getDashboardInfo.request>) {
+function* getDashboardSaga({payload}: ReturnType<typeof getDashboardInfo.request>) {
   try {
     const hostUrl: string = yield select(hostUrlSelector);
     const response: AxiosResponse<DashboardData> = yield axios
@@ -16,7 +14,7 @@ function* getDashboardSaga({
 
     payload.onSuccess(response.data);
   } catch (err) {
-    console.error(err.response);
+    console.error(err);
     payload.onFailure();
   }
 }

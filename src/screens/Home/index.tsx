@@ -1,41 +1,25 @@
-import React from 'react';
-import {connect, useDispatch} from 'react-redux';
-import {View, Text, FlatList, ScrollView} from 'react-native';
-import {material} from 'react-native-typography';
-import IconM from 'react-native-vector-icons/MaterialCommunityIcons';
-import {
-  FAB,
-  Appbar,
-  Snackbar,
-  Title,
-  Subheading,
-  IconButton,
-  Caption,
-} from 'react-native-paper';
-import {globalStyles} from '../../constants/globalStyles';
-import {Icon} from 'react-native-paper/lib/typescript/src/components/Avatar/Avatar';
-import {Switch} from 'react-native-gesture-handler';
+import React from "react";
+import {View, Text, FlatList, ScrollView} from "react-native";
+import IconM from "react-native-vector-icons/MaterialCommunityIcons";
+import {Title, Subheading, IconButton} from "react-native-paper";
+import {globalStyles} from "../../constants/globalStyles";
+import {Switch} from "react-native-gesture-handler";
 
 const DeviceCard = ({item, index}: any) => {
-  const dispatch = useDispatch();
-  const [state, setState] = React.useState(item.state === 'on' ? true : false);
+  const [state, setState] = React.useState(item.state === "on" ? true : false);
 
   return (
     <View
       style={{
         marginLeft: index === 0 ? 20 : 16,
         marginRight: 20,
-        backgroundColor: 'white',
+        backgroundColor: "white",
         borderRadius: 8,
         width: 160,
       }}>
-      <View style={{flexDirection: 'row'}}>
+      <View style={{flexDirection: "row"}}>
         <View style={{flex: 1, margin: 12}}>
-          <IconM
-            name="lightbulb-outline"
-            size={28}
-            color={globalStyles.colors.primary}
-          />
+          <IconM name="lightbulb-outline" size={28} color={globalStyles.colors.primary} />
         </View>
         <IconButton
           icon="dots-vertical"
@@ -48,11 +32,13 @@ const DeviceCard = ({item, index}: any) => {
       <View style={{height: 8}} />
       <Switch
         value={state}
-        thumbColor={state ? globalStyles.colors.primary : 'white'}
-        onValueChange={() => {}}
+        thumbColor={state ? globalStyles.colors.primary : "white"}
+        onValueChange={() => {
+          setState(!state);
+        }}
         trackColor={{
-          false: '#eee',
-          true: '#eee',
+          false: "#eee",
+          true: "#eee",
         }}
       />
       <View style={{height: 8}} />
@@ -93,7 +79,7 @@ const Home: React.FC<any> = props => {
 
   const fetchDevices = () => {
     props.indexDevices(
-      '&options=keyValues',
+      "&options=keyValues",
       (res: any) => {
         console.log(res);
         setDevices([...res]);
@@ -110,20 +96,17 @@ const Home: React.FC<any> = props => {
     <View style={{flex: 1, backgroundColor: globalStyles.colors.lightGray}}>
       <View
         style={{
-          backgroundColor: 'white',
+          backgroundColor: "white",
           padding: 20,
           elevation: 2,
         }}>
-        <View style={{flexDirection: 'row'}}>
+        <View style={{flexDirection: "row"}}>
           <View style={{flex: 1}}>
-            <Subheading style={{color: '#aaa'}}>Welcome home,</Subheading>
+            <Subheading style={{color: "#aaa"}}>Welcome home,</Subheading>
             <Title style={{marginTop: 0, lineHeight: 26}}>Angga Pradipta</Title>
           </View>
           <View>
-            <IconButton
-              icon="bell-outline"
-              color={globalStyles.colors.primary}
-            />
+            <IconButton icon="bell-outline" color={globalStyles.colors.primary} />
           </View>
         </View>
         {/* <View style={{height: 12}} />
@@ -213,45 +196,31 @@ const Home: React.FC<any> = props => {
                   <View
                     style={{
                       marginLeft: index === 0 ? 20 : 16,
-                      marginRight:
-                        index === devices && devices.length - 1 ? 20 : 0,
+                      marginRight: index === devices && devices.length - 1 ? 20 : 0,
                       backgroundColor:
-                        selectedRoom === item.id
-                          ? globalStyles.colors.primary
-                          : 'white',
+                        selectedRoom === item.id ? globalStyles.colors.primary : "white",
                       borderRadius: 8,
                       width: 160,
                     }}>
-                    <View style={{flexDirection: 'row'}}>
+                    <View style={{flexDirection: "row"}}>
                       <View style={{flex: 1, margin: 12}}>
                         <IconM
                           name="sofa"
                           size={28}
-                          color={
-                            selectedRoom === item.id
-                              ? 'white'
-                              : globalStyles.colors.primary
-                          }
+                          color={selectedRoom === item.id ? "white" : globalStyles.colors.primary}
                         />
                       </View>
                       <IconButton
                         icon="dots-vertical"
                         onPress={() => {}}
                         rippleColor="#eee"
-                        color={
-                          selectedRoom === item.id
-                            ? 'white'
-                            : globalStyles.colors.primary
-                        }
+                        color={selectedRoom === item.id ? "white" : globalStyles.colors.primary}
                       />
                     </View>
                     <Text
                       style={{
                         marginLeft: 12,
-                        color:
-                          selectedRoom === item.id
-                            ? 'white'
-                            : globalStyles.colors.primary,
+                        color: selectedRoom === item.id ? "white" : globalStyles.colors.primary,
                       }}>
                       {item.name}
                     </Text>
@@ -265,13 +234,13 @@ const Home: React.FC<any> = props => {
                         height: 0,
                         marginLeft: 32,
                         marginTop: -4,
-                        backgroundColor: 'transparent',
-                        borderStyle: 'solid',
+                        backgroundColor: "transparent",
+                        borderStyle: "solid",
                         borderLeftWidth: 12,
                         borderRightWidth: 12,
                         borderTopWidth: 12,
-                        borderLeftColor: 'transparent',
-                        borderRightColor: 'transparent',
+                        borderLeftColor: "transparent",
+                        borderRightColor: "transparent",
                         borderTopColor: globalStyles.colors.primary,
                       }}
                     />
@@ -291,9 +260,7 @@ const Home: React.FC<any> = props => {
             horizontal
             showsHorizontalScrollIndicator={false}
             keyExtractor={({name}) => name}
-            renderItem={({index, item}) => (
-              <DeviceCard item={item} index={index} />
-            )}
+            renderItem={({index, item}) => <DeviceCard item={item} index={index} />}
           />
         </View>
         <View style={{height: 20}} />

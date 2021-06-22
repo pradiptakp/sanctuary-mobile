@@ -1,8 +1,8 @@
 import React from "react";
 import {View} from "react-native";
 
-export const Devices = () => {
+export const Screen = () => {
   return <View />;
 };
 
-export default Devices;
+export default Screen;

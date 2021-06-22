@@ -1,10 +1,10 @@
-import { createAsyncAction } from "typesafe-actions";
-import { Device, DeviceType } from "../../types";
+import {createAsyncAction} from "typesafe-actions";
+import {Device, DeviceType} from "../../types";
 
 export const getDevices = createAsyncAction(
   "GET_DEVICES_REQUEST",
   "GET_DEVICES_SUCCESS",
-  "GET_DEVICES_ERROR"
+  "GET_DEVICES_ERROR",
 )<
   {
     onSuccess: (res: Device[]) => void;
@@ -17,7 +17,7 @@ export const getDevices = createAsyncAction(
 export const getDevice = createAsyncAction(
   "GET_DEVICE_REQUEST",
   "GET_DEVICE_SUCCESS",
-  "GET_DEVICE_ERROR"
+  "GET_DEVICE_ERROR",
 )<
   {
     id: string;
@@ -31,7 +31,7 @@ export const getDevice = createAsyncAction(
 export const deleteDevice = createAsyncAction(
   "DELETE_DEVICE_REQUEST",
   "DELETE_DEVICE_SUCCESS",
-  "DELETE_DEVICE_ERROR"
+  "DELETE_DEVICE_ERROR",
 )<
   {
     id: string;
@@ -45,7 +45,7 @@ export const deleteDevice = createAsyncAction(
 export const updateDevice = createAsyncAction(
   "UPDATE_DEVICE_REQUEST",
   "UPDATE_DEVICE_SUCCESS",
-  "UPDATE_DEVICE_ERROR"
+  "UPDATE_DEVICE_ERROR",
 )<
   {
     id: string;
@@ -62,7 +62,7 @@ export const updateDevice = createAsyncAction(
 export const postDevice = createAsyncAction(
   "POST_DEVICE_REQUEST",
   "POST_DEVICE_SUCCESS",
-  "POST_DEVICE_ERROR"
+  "POST_DEVICE_ERROR",
 )<
   {
     data: {
@@ -79,7 +79,7 @@ export const postDevice = createAsyncAction(
 export const switchDevice = createAsyncAction(
   "SWITCH_DEVICE_REQUEST",
   "SWITCH_DEVICE_SUCCESS",
-  "SWITCH_DEVICE_ERROR"
+  "SWITCH_DEVICE_ERROR",
 )<
   {
     id: string;

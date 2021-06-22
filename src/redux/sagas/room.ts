@@ -1,26 +1,18 @@
-import {select, takeLatest} from 'redux-saga/effects';
-import axios, {AxiosResponse} from 'axios';
-import {
-  deleteRoom,
-  getRoom,
-  getRooms,
-  postRoom,
-  updateRoom,
-} from '../actions/roomActions';
-import {INDEX_ROOM, STORE_ROOM, DELETE_ROOM, UPDATE_ROOM} from '../../apis';
-import {Room} from '../../types';
-import {hostUrlSelector} from '../reducers/appReducer';
+import {select, takeLatest} from "redux-saga/effects";
+import axios, {AxiosResponse} from "axios";
+import {deleteRoom, getRoom, getRooms, postRoom, updateRoom} from "../actions/roomActions";
+import {INDEX_ROOM, STORE_ROOM, DELETE_ROOM, UPDATE_ROOM} from "../../apis";
+import {Room} from "../../types";
+import {hostUrlSelector} from "../reducers/appReducer";
 
 function* getRoomsSaga({payload}: ReturnType<typeof getRooms.request>) {
   try {
     const hostUrl: string = yield select(hostUrlSelector);
-    const response: AxiosResponse<Room[]> = yield axios.get(
-      hostUrl + INDEX_ROOM,
-    );
+    const response: AxiosResponse<Room[]> = yield axios.get(hostUrl + INDEX_ROOM);
 
     payload.onSuccess(response.data);
   } catch (err) {
-    console.error(err.response);
+    console.error(err);
     payload.onFailure();
   }
 }
@@ -28,13 +20,11 @@ function* getRoomsSaga({payload}: ReturnType<typeof getRooms.request>) {
 function* getRoomSaga({payload}: ReturnType<typeof getRoom.request>) {
   try {
     const hostUrl: string = yield select(hostUrlSelector);
-    const response: AxiosResponse<Room> = yield axios.get(
-      `${hostUrl + INDEX_ROOM}/${payload.id}`,
-    );
+    const response: AxiosResponse<Room> = yield axios.get(`${hostUrl + INDEX_ROOM}/${payload.id}`);
     payload.onSuccess(response.data);
   } catch (err) {
-    console.error(err.response);
-    payload.onFailure(err.response.data);
+    console.error(err);
+    payload.onFailure(err);
   }
 }
 
@@ -45,7 +35,7 @@ function* postRoomSaga({payload}: ReturnType<typeof postRoom.request>) {
 
     payload.onSuccess();
   } catch (err) {
-    console.error(err.response);
+    console.error(err);
     payload.onFailure();
   }
 }
@@ -57,7 +47,7 @@ function* updateRoomSaga({payload}: ReturnType<typeof updateRoom.request>) {
 
     payload.onSuccess();
   } catch (err) {
-    console.error(err.response);
+    console.error(err);
     payload.onFailure();
   }
 }
@@ -69,8 +59,8 @@ function* deleteRoomSaga({payload}: ReturnType<typeof deleteRoom.request>) {
 
     payload.onSuccess();
   } catch (err) {
-    console.error(err.response);
-    payload.onFailure(err.response.data);
+    console.error(err);
+    payload.onFailure(err);
   }
 }
 

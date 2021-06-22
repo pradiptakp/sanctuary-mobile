@@ -1,32 +1,24 @@
-import {select, takeLatest} from 'redux-saga/effects';
-import axios, {AxiosResponse} from 'axios';
+import {select, takeLatest} from "redux-saga/effects";
+import axios, {AxiosResponse} from "axios";
 import {
   deleteDevice,
   getDevices,
   postDevice,
   switchDevice,
   updateDevice,
-} from '../actions/deviceActions';
-import {
-  DELETE_DEVICE,
-  INDEX_DEVICE,
-  STORE_DEVICE,
-  SWITCH_DEVICE,
-  UPDATE_DEVICE,
-} from '../../apis';
-import {Device} from '../../types';
-import {hostUrlSelector} from '../reducers/appReducer';
+} from "../actions/deviceActions";
+import {DELETE_DEVICE, INDEX_DEVICE, STORE_DEVICE, SWITCH_DEVICE, UPDATE_DEVICE} from "../../apis";
+import {Device} from "../../types";
+import {hostUrlSelector} from "../reducers/appReducer";
 
 function* getDevicesSaga({payload}: ReturnType<typeof getDevices.request>) {
   try {
     const hostUrl: string = yield select(hostUrlSelector);
-    const response: AxiosResponse<Device[]> = yield axios.get(
-      hostUrl + INDEX_DEVICE,
-    );
+    const response: AxiosResponse<Device[]> = yield axios.get(hostUrl + INDEX_DEVICE);
 
     payload.onSuccess(response.data);
   } catch (err) {
-    console.error(err.response);
+    console.error(err);
     payload.onFailure();
   }
 }
@@ -38,7 +30,7 @@ function* postDeviceSaga({payload}: ReturnType<typeof postDevice.request>) {
 
     payload.onSuccess();
   } catch (err) {
-    console.error(err.response);
+    console.error(err);
     payload.onFailure();
   }
 }
@@ -50,7 +42,7 @@ function* updateDeviceSaga({payload}: ReturnType<typeof updateDevice.request>) {
 
     payload.onSuccess();
   } catch (err) {
-    console.error(err.response);
+    console.error(err);
     payload.onFailure();
   }
 }
@@ -62,7 +54,7 @@ function* deleteDeviceSaga({payload}: ReturnType<typeof deleteDevice.request>) {
 
     payload.onSuccess();
   } catch (err) {
-    console.error(err.response);
+    console.error(err);
     payload.onFailure();
   }
 }
@@ -74,7 +66,7 @@ function* switchDeviceSaga({payload}: ReturnType<typeof switchDevice.request>) {
 
     payload.onSuccess();
   } catch (err) {
-    console.error(err.response);
+    console.error(err);
     payload.onFailure();
   }
 }

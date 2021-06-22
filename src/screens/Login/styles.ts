@@ -1,21 +1,21 @@
-import {StyleSheet} from 'react-native';
-import {scale, verticalScale} from 'react-native-size-matters';
-import {globalStyles} from '../../constants/globalStyles';
+import {StyleSheet} from "react-native";
+import {scale, verticalScale} from "react-native-size-matters";
+import {globalStyles} from "../../constants/globalStyles";
 
 export const styles = StyleSheet.create({
   root: {
-    backgroundColor: 'white',
+    backgroundColor: "white",
     flex: 1,
-    width: '100%',
+    width: "100%",
   },
   screenContainer: {
-    backgroundColor: 'white',
+    backgroundColor: "white",
     flex: 1,
-    width: '100%',
+    width: "100%",
     padding: scale(20),
   },
   fab: {
-    position: 'absolute',
+    position: "absolute",
     margin: 16,
     right: 0,
     bottom: 0,
@@ -39,6 +39,6 @@ export const styles = StyleSheet.create({
   },
   formContainer: {
     marginBottom: verticalScale(32),
-    width: '100%',
+    width: "100%",
   },
 });

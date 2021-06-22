@@ -1,19 +1,3 @@
-export type UserData = {
-  access_token: string;
-  token_type: "Bearer";
-  scope: ["permanent"];
-  keyrockToken: string;
-  userData: {
-    scope: [];
-    id: string;
-    username: string;
-    email: string;
-    date_password: string;
-    enabled: boolean;
-    admin: boolean;
-  };
-};
-
 export type DeviceType = "Lamp" | "Lock" | "Temperature";
 
 export type Room = {
@@ -26,6 +10,22 @@ export type Room = {
   temperature: number;
   totalDevice: number;
   devices: Device[];
+};
+
+export type UserData = {
+  access_token: string;
+  token_type: "Bearer";
+  scope: "permanent"[];
+  keyrockToken: string;
+  userData: {
+    scope: string[];
+    id: string;
+    username: string;
+    email: string;
+    date_password: string;
+    enabled: boolean;
+    admin: boolean;
+  };
 };
 
 export type Device = {

@@ -1,7 +1,7 @@
-import { createReducer } from "typesafe-actions";
-import { UserData } from "../../types";
-import { AuthAction } from "../actions/actionTypes";
-import { postLogout, setUser } from "../actions/authActions";
+import {createReducer} from "typesafe-actions";
+import {UserData} from "../../types";
+import {AuthAction} from "../actions/actionTypes";
+import {postLogout, setUser} from "../actions/authActions";
 
 export interface AuthState {
   user?: UserData | undefined;
@@ -16,7 +16,7 @@ const authReducer = createReducer<AuthState, AuthAction>(initialState)
     ...state,
     user: action.payload,
   }))
-  .handleAction(postLogout, (state) => ({
+  .handleAction(postLogout, state => ({
     ...state,
     user: undefined,
   }));
