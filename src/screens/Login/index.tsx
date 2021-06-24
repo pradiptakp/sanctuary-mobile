@@ -1,5 +1,5 @@
 import React from "react";
-import {View, ScrollView, Text, Keyboard} from "react-native";
+import {View, ScrollView, Text, Keyboard, Alert} from "react-native";
 import {material} from "react-native-typography";
 import {styles} from "./styles";
 import Image from "../../components/ScalableImage";
@@ -11,7 +11,7 @@ import {RootState} from "../../redux/store";
 import {AppRoute} from "../../navigations/routes";
 import {postLogin} from "../../redux/actions/authActions";
 
-const Login: AppScreen<AppRoute.LOGIN> = props => {
+const Login: AppScreen<AppRoute.LOGIN> = (props) => {
   const hostname = useSelector((state: RootState) => state.app.hostUrl);
   const dispatch = useDispatch();
   const [loading, setLoading] = React.useState(false);
@@ -33,6 +33,7 @@ const Login: AppScreen<AppRoute.LOGIN> = props => {
         },
         onFailure: () => {
           setLoading(false);
+          Alert.alert("Error", "Login gagal");
         },
       }),
     );
@@ -51,7 +52,7 @@ const Login: AppScreen<AppRoute.LOGIN> = props => {
             autoCapitalize="none"
             selectionColor={globalStyles.colors.selection}
             value={email}
-            onChangeText={text => setEmail(text)}
+            onChangeText={(text) => setEmail(text)}
           />
           <TextInput
             mode="outlined"
@@ -60,11 +61,12 @@ const Login: AppScreen<AppRoute.LOGIN> = props => {
             autoCapitalize="none"
             secureTextEntry={true}
             value={password}
-            onChangeText={text => setPassword(text)}
+            onChangeText={(text) => setPassword(text)}
             style={styles.inputPassword}
           />
           <Button
             loading={loading}
+            disabled={loading || !email || !password}
             dark={true}
             mode="contained"
             style={styles.button}

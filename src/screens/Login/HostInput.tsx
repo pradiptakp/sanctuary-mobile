@@ -9,7 +9,7 @@ import {setHostUrl} from "../../redux/actions/appActions";
 import {AppRoute} from "../../navigations/routes";
 import {RootState} from "../../redux/store";
 
-export const HostInput: AppScreen<AppRoute.INPUT_HOST> = props => {
+export const HostInput: AppScreen<AppRoute.INPUT_HOST> = (props) => {
   const dispatch = useDispatch();
   const hostUrl = useSelector((state: RootState) => state.app.hostUrl);
   const [hostname, setHostname] = React.useState<string>("");
@@ -21,7 +21,10 @@ export const HostInput: AppScreen<AppRoute.INPUT_HOST> = props => {
 
   return (
     <View style={styles.root}>
-      <IconButton icon="arrow-left" onPress={() => props.navigation.goBack()} />
+      {props.navigation.canGoBack() ? (
+        <IconButton icon="arrow-left" onPress={() => props.navigation.goBack()} />
+      ) : null}
+
       <ScrollView style={styles.screenContainer} keyboardShouldPersistTaps="handled">
         <Text style={[material.title, styles.title]}>Set Hostname</Text>
         <Text style={[material.body1, {marginBottom: 8}]}>
@@ -35,7 +38,7 @@ export const HostInput: AppScreen<AppRoute.INPUT_HOST> = props => {
             autoCapitalize="none"
             selectionColor={globalStyles.colors.selection}
             value={hostname}
-            onChangeText={text => setHostname(text)}
+            onChangeText={(text) => setHostname(text)}
             style={{marginBottom: 20}}
           />
 
@@ -50,8 +53,15 @@ export const HostInput: AppScreen<AppRoute.INPUT_HOST> = props => {
             Save
           </Button>
         </View>
-        <Text style={[material.caption, {textAlign: "center"}]}>
-          Current Hostname: <Text style={{fontWeight: "bold"}}>{hostUrl}</Text>
+        <Text style={[material.caption]}>Example:</Text>
+        <Text style={[material.caption, {fontWeight: "bold", marginTop: 2}]}>
+          http://localhost:3002
+        </Text>
+        <Text style={[material.caption, {fontWeight: "bold", marginTop: 2}]}>
+          http://192.168.1.5:3002
+        </Text>
+        <Text style={[material.caption, {fontWeight: "bold", marginTop: 2}]}>
+          https://sanctuary.sh/api
         </Text>
       </ScrollView>
     </View>

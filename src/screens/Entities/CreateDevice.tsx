@@ -24,7 +24,7 @@ const deviceTypeOptions: {value: DeviceType; title: string}[] = [
   },
 ];
 
-export const CreateRoom: AppScreen<AppRoute.ADD_DEVICE> = ({route: {params}, ...props}) => {
+export const CreateDevice: AppScreen<AppRoute.ADD_DEVICE> = ({route: {params}, ...props}) => {
   const {deviceId, roomId} = params;
   const dispatch = useDispatch();
   const [loading, setLoading] = React.useState(false);
@@ -96,7 +96,7 @@ export const CreateRoom: AppScreen<AppRoute.ADD_DEVICE> = ({route: {params}, ...
       }}>
       <Appbar.Header style={{backgroundColor: "white"}}>
         <Appbar.BackAction onPress={() => props.navigation.goBack()} />
-        <Appbar.Content title={deviceId ? "Update Room" : "Create Room"} />
+        <Appbar.Content title={deviceId ? "Update Device" : "Create Device"} />
       </Appbar.Header>
       <ScrollView
         style={{
@@ -151,4 +151,4 @@ export const CreateRoom: AppScreen<AppRoute.ADD_DEVICE> = ({route: {params}, ...
   );
 };
 
-export default CreateRoom;
+export default CreateDevice;

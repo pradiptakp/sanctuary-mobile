@@ -38,19 +38,7 @@ const Profile: AppScreen<AppRoute.PROFILE> = (props) => {
       </View>
       <View style={{height: 12}} />
       <Title style={{paddingHorizontal: 20, fontSize: 16}}>Information</Title>
-      <View
-        style={{
-          backgroundColor: "white",
-          borderBottomColor: "#eee",
-          borderBottomWidth: 1,
-          padding: 20,
-          paddingVertical: 16,
-          flexDirection: "row",
-          alignItems: "center",
-        }}>
-        <Text style={{flex: 1}}>About</Text>
-        <IconM name="chevron-right" size={20} color={globalStyles.colors.primary} />
-      </View>
+
       <View
         style={{
           backgroundColor: "white",

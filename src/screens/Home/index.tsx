@@ -325,7 +325,7 @@ const Home: AppScreen<AppRoute.HOME> = (props) => {
   React.useEffect(fetchRooms, []);
 
   const onDelete = (id: string) => {
-    Alert.alert("Delete Room", "Room and its devices will be deleted, are you sure?", [
+    Alert.alert("Delete Room", "Room will be deleted, are you sure?", [
       {
         text: "Cancel",
       },
